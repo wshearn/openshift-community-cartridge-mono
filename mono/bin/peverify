@@ -1,0 +1,2 @@
+#!/bin/sh
+exec ${OPENSHIFT_MONO_DIR}/mono/bin/pedump $MONO_OPTIONS --verify metadata,code "$@"

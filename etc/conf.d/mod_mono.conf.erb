@@ -1,0 +1,40 @@
+# mod_mono.conf
+
+# Achtung! This file may be overwritten
+# Use 'include mod_mono.conf' from other configuration file
+# to load mod_mono module.
+
+<IfModule !mod_mono.c>
+    LoadModule mono_module <%= ENV['OPENSHIFT_MONO_DIR'] %>/mono/modules/mod_mono.so
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Powered-By "Mono"
+</IfModule>
+
+AddType application/x-asp-net .aspx
+AddType application/x-asp-net .asmx
+AddType application/x-asp-net .ashx
+AddType application/x-asp-net .asax
+AddType application/x-asp-net .ascx
+AddType application/x-asp-net .soap
+AddType application/x-asp-net .rem
+AddType application/x-asp-net .axd
+AddType application/x-asp-net .cs
+AddType application/x-asp-net .vb
+AddType application/x-asp-net .master
+AddType application/x-asp-net .sitemap
+AddType application/x-asp-net .resources
+AddType application/x-asp-net .skin
+AddType application/x-asp-net .browser
+AddType application/x-asp-net .webinfo
+AddType application/x-asp-net .resx
+AddType application/x-asp-net .licx
+AddType application/x-asp-net .csproj
+AddType application/x-asp-net .vbproj
+AddType application/x-asp-net .config
+AddType application/x-asp-net .Config
+AddType application/x-asp-net .dll
+DirectoryIndex index.aspx
+DirectoryIndex Default.aspx
+DirectoryIndex default.aspx

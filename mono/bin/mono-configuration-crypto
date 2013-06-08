@@ -1,0 +1,2 @@
+#!/bin/sh
+exec ${OPENSHIFT_MONO_DIR}/build/bin/bin/mono $MONO_OPTIONS ${OPENSHIFT_MONO_DIR}/build/bin/lib/mono/mono-configuration-crypto/4.0/mono-configuration-crypto.exe "$@"

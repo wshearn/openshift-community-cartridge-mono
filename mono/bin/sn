@@ -1,0 +1,3 @@
+#!/bin/sh
+umask 077
+exec ${OPENSHIFT_MONO_DIR}/mono/bin/mono $MONO_OPTIONS ${OPENSHIFT_MONO_DIR}/mono/lib/mono/4.0/sn.exe "$@"

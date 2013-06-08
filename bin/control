@@ -1,0 +1,71 @@
+#!/bin/bash -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+HTTPD_CFG_FILE=$OPENSHIFT_MONO_DIR/etc/conf/httpd.conf
+HTTPD_CFG_DIR=$OPENSHIFT_MONO_DIR/etc/conf.d/
+HTTPD_PID_FILE=$OPENSHIFT_MONO_DIR/run/httpd.pid
+
+function apache() {
+    client_message "$2 Apache+mod_mono HTTPD server"
+    [ "$1" != "stop" ] && update_httpd_passenv $HTTPD_CFG_FILE
+    /usr/sbin/httpd -C "Include $HTTPD_CFG_DIR/*.conf" -f $HTTPD_CFG_FILE -k $1
+    return $?
+}
+
+function stop() {
+    client_message "Stopping Apache+mod_mono HTTPD server"
+    if [ -f "$HTTPD_PID_FILE" ]; then
+        httpd_pid=`cat "$HTTPD_PID_FILE" 2> /dev/null`
+    fi
+    ensure_valid_httpd_process "$HTTPD_PID_FILE" "$HTTPD_CFG_FILE"
+    /usr/sbin/httpd -C "Include $HTTPD_CFG_DIR/*.conf" -f $HTTPD_CFG_FILE -k stop
+    wait_for_stop $httpd_pid
+}
+
+function configtest() {
+    client_message "Testing Apache *.conf files"
+    /usr/sbin/httpd -C "Include $HTTPD_CFG_DIR/*.conf" -f $HTTPD_CFG_FILE -t
+    return $?
+}
+
+function status() {
+   if output=$(curl http://$OPENSHIFT_MONO_IP:$OPENSHIFT_MONO_PORT/server-status?auto 2>&1 )
+   then
+      client_result "Application is running"
+      client_result $output
+      return 0
+   else
+      client_result "Application is either stopped or inaccessible"
+      # FIXME: We should return 1 once we can handle non-zero return statuses
+      #        (This should be possible after we remove the v1 logic completely)
+      return 0
+   fi
+}
+
+function tidy() {
+    client_message "Emptying log dir: $OPENSHIFT_MONO_LOG_DIR"
+    shopt -s dotglob
+    rm -rf $OPENSHIFT_MONO_LOG_DIR/*
+    return 0
+}
+
+function build() {
+    return 0
+}
+
+case "$1" in
+  start)           apache start "Starting" ;;
+  stop)            stop ;;
+  restart)         apache restart "Restarting" ;;
+  reload|graceful) apache graceful "Restarting gracefully" ;;
+  status)          status ;;
+  configtest)      configtest ;;
+  tidy)            tidy ;;
+  build)           build ;;
+  deploy)          exit 0 ;;
+  *)               exit 0
+esac
+
+exit $?
+

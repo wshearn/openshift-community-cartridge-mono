@@ -1,0 +1,63 @@
+Name: mono
+Cartridge-Short-Name: MONO
+Display-Name: ASP.NET Cartridge using Mono
+Source-Url: https://github.com/wshearn/openshiftmonotest.git
+Description: "ASP.NET for OpenShift."
+Version: '2.10.9'
+License: "GPL/LGPL"
+Vendor: Xamarin
+Cartridge-Version: 0.0.1
+Cartridge-Vendor: wshearn
+Categories:
+  - service
+  - web_framework
+Provides:
+  - mono-2.10
+  - "mono"
+  - "mono (version) = 2.10" 
+  - "mono (version) = 2.10.9" 
+Cart-Data:
+  - Key: OPENSHIFT_TMP_DIR
+    Type: environment
+    Description: "Directory to store application temporary files."
+  - Key: OPENSHIFT_REPO_DIR
+    Type: environment
+    Description: "Application root directory where application files reside. This directory is reset every time you do a git-push"
+  - Key: OPENSHIFT_MONO_PORT
+    Type: environment
+    Description: "Internal port to which the web-framework binds to."
+  - Key: OPENSHIFT_MONO_IP
+    Type: environment
+    Description: "Internal IP to which the web-framework binds to."
+  - Key: OPENSHIFT_APP_DNS
+    Type: environment
+    Description: "Fully qualified domain name for the application."
+  - Key: OPENSHIFT_APP_NAME
+    Type: environment
+    Description: "Application name"
+  - Key: OPENSHIFT_DATA_DIR
+    Type: environment
+    Description: "Directory to store application data files. Preserved across git-pushes. Not shared across gears."
+  - Key: OPENSHIFT_APP_UUID
+    Type: environment
+    Description: "Unique ID which identified the application. Does not change between gears."
+  - Key: OPENSHIFT_GEAR_UUID
+    Type: environment
+    Description: "Unique ID which identified the gear. This value changes between gears."
+Group-Overrides:
+  - components:
+    - mono-2.10
+    - web_proxy
+Subscribes:
+  set-db-connection-info:
+    Type: "NET_TCP:db:connection-info"
+    Required: false
+Endpoints:
+  - Private-IP-Name:   IP
+    Private-Port-Name: PORT
+    Private-Port:      8080
+    Public-Port-Name:  PROXY_PORT
+    Mappings:
+      - Frontend:      ""
+        Backend:       ""
+        Options:       { websockets: false }

@@ -1,7 +1,7 @@
 Name: mono
 Cartridge-Short-Name: MONO
 Display-Name: ASP.NET Cartridge using Mono
-Source-Url: https://github.com/wshearn/openshiftmonotest.git
+Source-Url: https://github.com/wshearn/openshift-community-cartridge-mono.git
 Description: "ASP.NET for OpenShift."
 Version: '2.10.9'
 License: "GPL/LGPL"
@@ -23,6 +23,9 @@ Cart-Data:
   - Key: OPENSHIFT_REPO_DIR
     Type: environment
     Description: "Application root directory where application files reside. This directory is reset every time you do a git-push"
+  - Key: OPENSHIFT_MONO_LOG_DIR
+    Type: environment
+    Description: "Here you can find your xsp and apache logs."
   - Key: OPENSHIFT_MONO_PORT
     Type: environment
     Description: "Internal port to which the web-framework binds to."

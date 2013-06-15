@@ -1,9 +1,0 @@
-prefix=/home/whearn/Work/apps/cart/mono/mono
-exec_prefix=${prefix}
-libdir=/home/whearn/Work/apps/cart/mono/mono/lib
-sourcesdir=${libdir}/monodoc/sources
-
-Name: Monodoc
-Description: Monodoc - Mono Documentation Tools
-Version: 2.10.9
-Libs: /r:${prefix}/lib/mono/monodoc/monodoc.dll 

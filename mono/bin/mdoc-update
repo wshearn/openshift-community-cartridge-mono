@@ -1,3 +1,2 @@
 #!/bin/sh
-update "$@"
 exec mdoc update "$@"

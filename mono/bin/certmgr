@@ -1,2 +1,2 @@
 #!/bin/sh
-exec ${OPENSHIFT_MONO_DIR}/mono/bin/mono $MONO_OPTIONS ${OPENSHIFT_MONO_DIR}/mono/lib/mono/4.0/certmgr.exe "$@"
+exec ${OPENSHIFT_MONO_DIR}/mono3/bin/mono $MONO_OPTIONS ${OPENSHIFT_MONO_DIR}/mono3/lib/mono/4.5/certmgr.exe "$@"

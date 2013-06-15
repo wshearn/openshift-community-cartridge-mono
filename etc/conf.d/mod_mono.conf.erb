@@ -6,6 +6,8 @@
 
 <IfModule !mod_mono.c>
     LoadModule mono_module <%= ENV['OPENSHIFT_MONO_DIR'] %>/mono/modules/mod_mono.so
+    MonoRunXSP "true"
+    MonoTargetFramework "4"
 </IfModule>
 
 <IfModule mod_headers.c>

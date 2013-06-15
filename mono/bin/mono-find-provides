@@ -18,7 +18,7 @@ monolist=($(printf "%s\n" "${filelist[@]}" | egrep "\\.(exe|dll)\$"))
 # Disabled... see ChangeLog
 
 # Set the prefix, unless it is overriden (used when building mono rpms)
-: ${prefix=${OPENSHIFT_MONO_DIR}/mono}
+: ${prefix=/home/whearn/Work/apps/cart/mono3}
 
 libdir=$prefix/lib
 bindir=$prefix/bin

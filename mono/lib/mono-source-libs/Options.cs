@@ -4,9 +4,11 @@
 // Authors:
 //  Jonathan Pryor <jpryor@novell.com>
 //  Federico Di Gregorio <fog@initd.org>
+//  Rolf Bjarne Kvinge <rolf@xamarin.com>
 //
 // Copyright (C) 2008 Novell (http://www.novell.com)
 // Copyright (C) 2009 Federico Di Gregorio.
+// Copyright (C) 2012 Xamarin Inc (http://www.xamarin.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -193,7 +195,7 @@ namespace Mono.Options
 					if (char.IsWhiteSpace (c))
 						++start;
 					width = GetNextWidth (ewidths, width, ref hw);
-				} while (end < self.Length);
+				} while (start < self.Length);
 			}
 		}
 
@@ -372,13 +374,19 @@ namespace Mono.Options
 		OptionValueType type;
 		int count;
 		string[] separators;
+		bool hidden;
 
 		protected Option (string prototype, string description)
-			: this (prototype, description, 1)
+			: this (prototype, description, 1, false)
 		{
 		}
 
 		protected Option (string prototype, string description, int maxValueCount)
+			: this (prototype, description, maxValueCount, false)
+		{
+		}
+
+		protected Option (string prototype, string description, int maxValueCount, bool hidden)
 		{
 			if (prototype == null)
 				throw new ArgumentNullException ("prototype");
@@ -388,10 +396,19 @@ namespace Mono.Options
 				throw new ArgumentOutOfRangeException ("maxValueCount");
 
 			this.prototype   = prototype;
-			this.names       = prototype.Split ('|');
 			this.description = description;
 			this.count       = maxValueCount;
+			this.names       = (this is OptionSet.Category)
+				// append GetHashCode() so that "duplicate" categories have distinct
+				// names, e.g. adding multiple "" categories should be valid.
+				? new[]{prototype + this.GetHashCode ()}
+				: prototype.Split ('|');
+
+			if (this is OptionSet.Category)
+				return;
+
 			this.type        = ParsePrototype ();
+			this.hidden      = hidden;
 
 			if (this.count == 0 && type != OptionValueType.None)
 				throw new ArgumentException (
@@ -414,6 +431,7 @@ namespace Mono.Options
 		public string           Description     {get {return description;}}
 		public OptionValueType  OptionValueType {get {return type;}}
 		public int              MaxValueCount   {get {return count;}}
+		public bool             Hidden          {get {return hidden;}}
 
 		public string[] GetNames ()
 		{
@@ -762,6 +780,31 @@ namespace Mono.Options
 			}
 		}
 
+		public OptionSet Add (string header)
+		{
+			if (header == null)
+				throw new ArgumentNullException ("header");
+			Add (new Category (header));
+			return this;
+		}
+
+		internal sealed class Category : Option {
+
+			// Prototype starts with '=' because this is an invalid prototype
+			// (see Option.ParsePrototype(), and thus it'll prevent Category
+			// instances from being accidentally used as normal options.
+			public Category (string description)
+				: base ("=:Category:= " + description, description)
+			{
+			}
+
+			protected override void OnParseComplete (OptionContext c)
+			{
+				throw new NotSupportedException ("Category.OnParseComplete should not be invoked.");
+			}
+		}
+
+
 		public new OptionSet Add (Option option)
 		{
 			base.Add (option);
@@ -772,7 +815,12 @@ namespace Mono.Options
 			Action<OptionValueCollection> action;
 
 			public ActionOption (string prototype, string description, int count, Action<OptionValueCollection> action)
-				: base (prototype, description, count)
+				: this (prototype, description, count, action, false)
+			{
+			}
+
+			public ActionOption (string prototype, string description, int count, Action<OptionValueCollection> action, bool hidden)
+				: base (prototype, description, count, hidden)
 			{
 				if (action == null)
 					throw new ArgumentNullException ("action");
@@ -792,10 +840,15 @@ namespace Mono.Options
 
 		public OptionSet Add (string prototype, string description, Action<string> action)
 		{
+			return Add (prototype, description, action, false);
+		}
+
+		public OptionSet Add (string prototype, string description, Action<string> action, bool hidden)
+		{
 			if (action == null)
 				throw new ArgumentNullException ("action");
 			Option p = new ActionOption (prototype, description, 1, 
-					delegate (OptionValueCollection v) { action (v [0]); });
+					delegate (OptionValueCollection v) { action (v [0]); }, hidden);
 			base.Add (p);
 			return this;
 		}
@@ -807,10 +860,14 @@ namespace Mono.Options
 
 		public OptionSet Add (string prototype, string description, OptionAction<string, string> action)
 		{
+			return Add (prototype, description, action, false);
+		}
+
+		public OptionSet Add (string prototype, string description, OptionAction<string, string> action, bool hidden)	{
 			if (action == null)
 				throw new ArgumentNullException ("action");
 			Option p = new ActionOption (prototype, description, 2, 
-					delegate (OptionValueCollection v) {action (v [0], v [1]);});
+					delegate (OptionValueCollection v) {action (v [0], v [1]);}, hidden);
 			base.Add (p);
 			return this;
 		}
@@ -1109,11 +1166,23 @@ namespace Mono.Options
 		}
 
 		private const int OptionWidth = 29;
+		private const int Description_FirstWidth  = 80 - OptionWidth;
+		private const int Description_RemWidth    = 80 - OptionWidth - 2;
 
 		public void WriteOptionDescriptions (TextWriter o)
 		{
 			foreach (Option p in this) {
 				int written = 0;
+
+				if (p.Hidden)
+					continue;
+
+				Category c = p as Category;
+				if (c != null) {
+					WriteDescription (o, p.Description, "", 80, 80);
+					continue;
+				}
+
 				if (!WriteOptionPrototype (o, p, ref written))
 					continue;
 
@@ -1124,14 +1193,8 @@ namespace Mono.Options
 					o.Write (new string (' ', OptionWidth));
 				}
 
-				bool indent = false;
-				string prefix = new string (' ', OptionWidth+2);
-				foreach (string line in GetLines (localizer (GetDescription (p.Description)))) {
-					if (indent) 
-						o.Write (prefix);
-					o.WriteLine (line);
-					indent = true;
-				}
+				WriteDescription (o, p.Description, new string (' ', OptionWidth+2),
+						Description_FirstWidth, Description_RemWidth);
 			}
 
 			foreach (ArgumentSource s in sources) {
@@ -1155,14 +1218,19 @@ namespace Mono.Options
 					o.Write (new string (' ', OptionWidth));
 				}
 
-				bool indent = false;
-				string prefix = new string (' ', OptionWidth+2);
-				foreach (string line in GetLines (localizer (GetDescription (s.Description)))) {
-					if (indent) 
-						o.Write (prefix);
-					o.WriteLine (line);
-					indent = true;
-				}
+				WriteDescription (o, s.Description, new string (' ', OptionWidth+2),
+						Description_FirstWidth, Description_RemWidth);
+			}
+		}
+
+		void WriteDescription (TextWriter o, string value, string prefix, int firstWidth, int remWidth)
+		{
+			bool indent = false;
+			foreach (string line in GetLines (localizer (GetDescription (value)), firstWidth, remWidth)) {
+				if (indent)
+					o.Write (prefix);
+				o.WriteLine (line);
+				indent = true;
 			}
 		}
 
@@ -1289,11 +1357,9 @@ namespace Mono.Options
 			return sb.ToString ();
 		}
 
-		private static IEnumerable<string> GetLines (string description)
+		private static IEnumerable<string> GetLines (string description, int firstWidth, int remWidth)
 		{
-			return StringCoda.WrappedLines (description, 
-					80 - OptionWidth, 
-					80 - OptionWidth - 2);
+			return StringCoda.WrappedLines (description, firstWidth, remWidth);
 		}
 	}
 }

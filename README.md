@@ -51,6 +51,7 @@ This project was created with Visual Studio 2012 so we need to fix a few things.
  - WebGrease.dll
  - WebMatrix.Data.dll
  - WebMatrix.WebData.dll
+
 Click on the button labeled "Add". Then click on OK.
 Now you want to hold control and click on all the references that are red in side the solution explorer. Then press delete.
 

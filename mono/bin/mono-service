@@ -35,7 +35,7 @@ fi
 
 export MONO_DISABLE_SHM=1
 if $debug; then
-   exec ${OPENSHIFT_MONO_DIR}/mono3/bin/mono $MONO_OPTIONS ${OPENSHIFT_MONO_DIR}/mono3/lib/mono/4.5/mono-service.exe $args
+   exec ${OPENSHIFT_MONO_DIR}/mono/bin/mono $MONO_OPTIONS ${OPENSHIFT_MONO_DIR}/mono/lib/mono/4.5/mono-service.exe $args
 else
-   exec ${OPENSHIFT_MONO_DIR}/mono3/bin/mono $MONO_OPTIONS ${OPENSHIFT_MONO_DIR}/mono3/lib/mono/4.5/mono-service.exe $args </dev/null >/dev/null 2>&1 &
+   exec ${OPENSHIFT_MONO_DIR}/mono/bin/mono $MONO_OPTIONS ${OPENSHIFT_MONO_DIR}/mono/lib/mono/4.5/mono-service.exe $args </dev/null >/dev/null 2>&1 &
 fi

@@ -1,13 +1,13 @@
 ﻿html {
-    background-color: #e2e2e2;
+    background-color: #000;
     margin: 0;
     padding: 0;
 }
 
 body {
-    background-color: #fff;
+    background-color: #666;
     border-top: solid 10px #000;
-    color: #333;
+    color: #fff;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     margin: 0;
@@ -15,7 +15,7 @@ body {
 }
 
 a {
-    color: #333;
+    color: #fff;
     outline: none;
     padding-left: 3px;
     padding-right: 3px;
@@ -24,11 +24,11 @@ a {
 
     a:link, a:visited,
     a:active, a:hover {
-        color: #333;
+        color: #fff;
     }
 
     a:hover {
-        background-color: #c7d1d6;
+        background-color: #000;
     }
 
 header, footer, hgroup,
@@ -37,7 +37,7 @@ nav, section {
 }
 
 mark {
-    background-color: #a6dbed;
+    background-color: #bb353f;
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -60,7 +60,7 @@ mark {
 
 h1, h2, h3,
 h4, h5, h6 {
-    color: #000;
+    color: #fff;
     margin-bottom: 0;
     padding-bottom: 0;
 }
@@ -99,7 +99,8 @@ h5, h6 {
 }
 
 #body {
-    background-color: #efeeef;
+    color: #fff;
+    background-color: #444;
     clear: both;
     padding-bottom: 35px;
 }
@@ -120,7 +121,7 @@ header .content-wrapper {
 
 footer {
     clear: both;
-    background-color: #e2e2e2;
+    background-color: #000;
     font-size: .8em;
     height: 100px;
 }
@@ -195,7 +196,7 @@ ul#menu {
 
         ul#menu li a {
             background: none;
-            color: #999;
+            color: #fff;
             text-decoration: none;
         }
 
@@ -209,17 +210,12 @@ ul#menu {
 ----------------------------------------------------------*/
 /* featured */
 .featured {
-    background-color: #fff;
+    background-color: #666;
 }
 
     .featured .content-wrapper {
-        background-color: #7ac0da;
-        background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #7ac0da), color-stop(1, #a4d4e6));
-        background-image: -webkit-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        color: #3e5667;
+        background-color: #91010B;
+        color: #fff;
         padding: 20px 40px 30px 40px;
     }
 

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 @section featured {
     <section class="featured">
@@ -31,8 +31,16 @@
     </li>
 
     <li class="two">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
+        <h5>Setting up your development environment</h5>
+        MonoDevelop 4 works with git and ssh making writing your awesome application
+        extremely easy.
+        @Html.ActionLink("Learn more…", "GettingStarted", "Home")
+    </li>
+    
+    <li class="three">
+    	<h5>Get involved with the OpenShift community</h5>
+    	The OpenShift community is filled with a wealth of knowledge that can make working
+    	with OpenShift a very enjoyable experience.
+    	@Html.ActionLink("Learn More...", "Contact", "Home")
     </li>
 </ol>

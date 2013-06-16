@@ -1,0 +1,91 @@
+@{
+    ViewBag.Title = "Getting Started";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+
+<article>
+    <p>
+        For these steps I am going to assume you already have MonoDevelop 4 and
+        Git installed and working.
+    </p>
+
+    <p>
+    	The following is the quick getting started steps.
+    	<ul>
+    		<li>Start up Monodevelop 4</li>
+    		<li>Click in the menu bar "Version Control->Checkout"</li>
+    		<li>It will open a dialog box. In the dropdown choose git. It should look like
+    			<a href="/Images/GettingStarted/monodevelop-git.png">this</a></li>
+    		<li>Paste "@ViewBag.GitURL" into the URL box.</li>
+    		<li>Change "Target Directory" to a new directory where you want your code to be stored.(I used /home/&lt;username&gt;/Projects/mono</li>
+    		<li>Click on OK</li>
+    		<li>Once it has finished click on "File->Open"</li>
+    		<li>And navigate to where you checked out the code and choose the OpenShift.csproj</li>
+    	</ul>
+    </p>
+
+    <p>
+        Since I had originally created this site with Visual Studio 2012 we need to do some house keeping so it will build with Mono and MonoDevelop.
+        So what you want to do is right click on "OpenShift(master)->OpenShift->References" in the Solution window and click on "Edit References"
+        then click on the tab labeled ".NET Assembly". Once there you want to navigate to "&lt;your projecy directory&gt;/bin". Then hold Ctrl on
+        your keyboard and click on the following DLL files:
+        <ol>
+        	<li>Antlr3.Runtime.dll</li>
+        	<li>EntityFramework.dll</li>
+        	<li>Microsoft.Data.Edm.dll</li>
+        	<li>Microsoft.Data.OData.dll</li>
+        	<li>Microsoft.Web.Infrastructure.dll</li>
+        	<li>Microsoft.Web.Mvc.FixedDisplayModes.dll</li>
+        	<li>Newtonsoft.Json.dll</li>
+        	<li>System.Data.Entity.dll</li>
+        	<li>System.Net.Http.dll</li>
+        	<li>System.Net.Http.Formatting.dll</li>
+        	<li>System.Net.Http.WebRequest.dll</li>
+        	<li>System.Spatial.dll</li>
+        	<li>System.Web.Helpers.dll</li>
+        	<li>System.Web.Http.dll</li>
+        	<li>System.Web.Http.OData.dll</li>
+        	<li>System.Web.Http.WebHost.dll</li>
+        	<li>System.Web.Mvc.dll</li>
+        	<li>System.Web.Optimization.dll</li>
+        	<li>System.Web.Razor.dll</li>
+        	<li>System.Web.WebPages.Deploymeny.dll</li>
+        	<li>System.Web.WebPages.dll</li>
+        	<li>System.Web.WebPages.Razor.dll</li>
+        	<li>WebGrease.dll</li>
+        	<li>WebMatrix.Data.dll</li>
+        	<li>WebMatrix.WebData.dll</li>
+        </ol>
+    </p>
+    <p>
+        Once you have selected them all press Add.
+        Now expand "OpenShift(master)->OpenShift->References" and hold control and select all the names that are red.
+        Once you have selected them all press Delete to remove them. You should now be able to do "Build->Build All"
+        successfully.
+    </p>
+    <p>    
+        From there to push your changes to your site click on "Version Control->Commit Solution" add a
+        commit message and check the box labeled "Push changes to remote repository after commit" and press commit.
+        On the dialog box that comes up after that press "Push Changes". When the status box at the top middle of
+        MonoDevelop says "Push operation successfully completed." you are done. Be warned the first time you access
+        your page after you make a push mono takes a bit to start up, don't worry if your browser sits there waiting
+        it will come up. Congratulations and happy hacking.
+    </p>
+</article>
+
+<aside>
+    <h3>Quick Links</h3>
+    <p>
+        These links will provide everything you need to know.
+    </p>
+    <ul>
+    	<li><a href="http://asp.net">ASP.NET</a></li>
+        <li><a href="http://www.monodevelop.com">MonoDevelop4</a></li>
+        <li><a href="http://git-scm.com">GIT</a></li>
+        <li>@Html.ActionLink("OpenShift Community", "Community", "Home")</li>
+    </ul>
+</aside>

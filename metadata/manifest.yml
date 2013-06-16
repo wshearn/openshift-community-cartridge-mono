@@ -12,7 +12,7 @@ Categories:
   - service
   - web_framework
 Provides:
-  - mono-2.10
+  - mono-3.0
   - "mono"
   - "mono (version) = 3.0" 
   - "mono (version) = 3.0.7" 

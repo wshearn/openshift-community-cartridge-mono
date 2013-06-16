@@ -3,10 +3,10 @@ Cartridge-Short-Name: MONO
 Display-Name: ASP.NET Cartridge using Mono
 Source-Url: https://github.com/wshearn/openshift-community-cartridge-mono.git
 Description: "ASP.NET for OpenShift."
-Version: '2.10.9'
+Version: '3.0.7'
 License: "GPL/LGPL"
 Vendor: Xamarin
-Cartridge-Version: 0.0.1
+Cartridge-Version: 1.0
 Cartridge-Vendor: wshearn
 Categories:
   - service
@@ -14,8 +14,8 @@ Categories:
 Provides:
   - mono-2.10
   - "mono"
-  - "mono (version) = 2.10" 
-  - "mono (version) = 2.10.9" 
+  - "mono (version) = 3.0" 
+  - "mono (version) = 3.0.7" 
 Cart-Data:
   - Key: OPENSHIFT_TMP_DIR
     Type: environment
@@ -49,12 +49,26 @@ Cart-Data:
     Description: "Unique ID which identified the gear. This value changes between gears."
 Group-Overrides:
   - components:
-    - mono-2.10
+    - mono-3.0.7
     - web_proxy
+Publishes:
+  publish-http-url:
+    Type: "NET_TCP:httpd-proxy-info"
+  publish-gear-endpoint:
+    Type: "NET_TCP:gear-endpoint-info"
 Subscribes:
   set-db-connection-info:
-    Type: "NET_TCP:db:connection-info"
+    Type: "ENV:NET_TCP:db:connection-info"
     Required: false
+  set-mysql-connection-info:
+    Type: "NET_TCP:db:mysql"
+    Required : false
+  set-postgres-connection-info:
+    Type: "NET_TCP:db:postgres"
+    Required : false
+  set-nosql-db-connection-info:
+    Type: "ENV:NET_TCP:nosqldb:connection-info"
+    Required : false
 Endpoints:
   - Private-IP-Name:   IP
     Private-Port-Name: PORT
@@ -63,4 +77,4 @@ Endpoints:
     Mappings:
       - Frontend:      ""
         Backend:       ""
-        Options:       { websockets: false }
+        Options:       { websocket: true }

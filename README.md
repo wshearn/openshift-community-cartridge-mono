@@ -3,7 +3,7 @@ Getting Started with OpenShift and Mono
 ---
 
 ####You will need:
-  - [MonoDevelop 4][1]
+  - [Xamarin Studio 4][1]
   - [GIT][2]
   - [OpenShift account][3]
 
@@ -23,9 +23,9 @@ Paste your git url you got at the end of the application creation wizard into th
 "ssh://51bcb3945973cac17a000040@mono-whearn.rhcloud.com/~/git/mono.git"
 Chose a directory that does not exist for the "Target directory" I will use "/home/whearn/Projects/mono". Click on "OK". If you have git properly set up and your ssh key added to your OpenShift account you should see "Solution checked out".
 
-Once that has finished click on "File" then "Open". Navigate to where you checked out your code(mine is /home/whearn/Projects/mono) and open MvcApplication5.csproj(Feel free to rename this.)
+Once that has finished click on "File" then "Open". Navigate to where you checked out your code(mine is /home/whearn/Projects/mono) and open OpenShift.csproj(Feel free to rename this.)
 
-This project was created with Visual Studio 2012 so we need to fix a few things. In your solution explorer expand "MvcApplication5" and "References". Right click References and click on "Edit References". Click on the tab called ".Net Assembly". Navigate to where you checked out your project and go into the "bin" directory" Hold control and click on the following dll files:
+This project was created with Visual Studio 2012 so we need to fix a few things. In your solution explorer expand "OpenShift" and "References". Right click References and click on "Edit References". Click on the tab called ".Net Assembly". Navigate to where you checked out your project and go into the "bin" directory" Hold control and click on the following dll files:
  - Antlr3.Runtime.dll
  - EntityFramework.dll
  - Microsoft.Data.Edm.dll
@@ -55,7 +55,7 @@ This project was created with Visual Studio 2012 so we need to fix a few things.
 Click on the button labeled "Add". Then click on OK.
 Now you want to hold control and click on all the references that are red in side the solution explorer. Then press delete.
 
-You should now be able to press F8 to build the solution. Congratulations you are now ready to create your website! 
+You should now be able to press F8 to build the solution. There is one issue: The xsp4 was started with 127.0.0.1:8080 and that throws an error. Correct the URL in your web browser to http://localhost:8080 and the sample website is visible. Congratulations you are now ready to create your website! 
 
 To push your changes up to OpenShift click on "Version Control" and click on "Commit Solution"
 Write a short commit message and press "Commit". Click back on "Version Control" and press "Push Changes" then click the button labeled "Push Changes". After a bit your new site will be up.

@@ -53,9 +53,9 @@ This project was created with Visual Studio 2012 so we need to fix a few things.
  - WebMatrix.WebData.dll
 
 Click on the button labeled "Add". Then click on OK.
-Now you want to hold control and click on all the references that are red in side the solution explorer. Then press delete.
+Now you want to hold control and click on all the references that are red in side the solution explorer. Then press delete or right click and in the context menu click on "Delete".
 
-You should now be able to press F8 to build the solution. Congratulations you are now ready to create your website! 
+You should now be able to press F8 (Windows/Linux) or CMD+B (OS X) to build the solution. Congratulations you are now ready to create your website! 
 
 To push your changes up to OpenShift click on "Version Control" and click on "Commit Solution"
 Write a short commit message and press "Commit". Click back on "Version Control" and press "Push Changes" then click the button labeled "Push Changes". After a bit your new site will be up.

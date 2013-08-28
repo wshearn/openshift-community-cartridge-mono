@@ -9,16 +9,6 @@
 </IfModule>
 <IfModule !mod_mono.c>
     LoadModule mono_module <%= ENV['OPENSHIFT_MONO_DIR'] %>/mono/modules/mod_mono.so
-    MonoServerPath "<%= ENV['OPENSHIFT_MONO_DIR'] %>/mono/bin/mod-mono-server4"
-    MonoIOMAP all
-    MonoApplications "/:<%= ENV['OPENSHIFT_REPO_DIR'] %>"
-    <Location "/">
-      Allow from all
-      Order allow,deny
-      SetHandler mono
-      SetOutputFilter DEFLATE
-      SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png)$" no-gzip dont-vary
-    </Location>
 </IfModule>
 
 <IfModule mod_headers.c>

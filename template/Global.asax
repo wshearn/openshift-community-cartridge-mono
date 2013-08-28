@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="OpenShift.DefaultSite" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="MySite.MvcApplication" Language="C#" %>

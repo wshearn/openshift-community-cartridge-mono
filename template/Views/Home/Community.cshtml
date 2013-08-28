@@ -2,46 +2,36 @@
     ViewBag.Title = "OpenShift Community";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>@ViewBag.Message</h2>
-</hgroup>
+@section featured {
+    <h1>@ViewBag.Title <small>@ViewBag.Message</small></h1>
+}
 
-<section class="contact">
-    <header>
-        <h3>IRC</h3>
-    </header>
-    <p>
-        <span class="label">From your client:</span>
-        <span><a href="irc://irc.freenode.net/#openshift">irc.freenode.net #openshift</a></span>
-    </p>
-    <p>
-        <span class="label">Web Client:</span>
-        <span><a href="https://www.openshift.com/irc">Freenode Webclient</a></span>
-    </p>
-</section>
+<h3>Get Involved!</h3>
+<br />
 
-<section class="contact">
-    <header>
-        <h3>Forums</h3>
-    </header>
-    <p>
-        <span class="label">Our amazing forums:</span>
-        <span><a href="https://www.openshift.com/forums/openshift">Come join us!</a></span>
-    </p>
-</section>
+<h4>IRC</h4>
+<p>
+	From your client: <a href="irc://irc.freenode.net/#openshift">irc.freenode.net #openshift</a>
+<p />
+<p>
+	Web Client: <a href="https://www.openshift.com/irc">Freenode Webclient</a>
+</p>
 
-<section class="contact">
-    <header>
-        <h3>GitHub:</h3>
-    </header>
-    <p>
-        <span class="label">OpenShift:</span>
-        <span><a href="https://github.com/openshift/">Help openshift grow!</a> (or learn how it works, either or.)</span>
-    </p>
-    <p>
-        <span class="label">Me:</span>
-        <span><a href="https://www.github.com/wshearn">See what else I have been up to.</a> (This cartridge is hosted there
-        and pull requests and bug reports are welcome</span>
-    </p>
-</section>
+<hr />
+
+<h4>Forums</h4>
+<p>
+	Our amazing forums: <a href="https://www.openshift.com/forums/openshift">Come join us!</a>
+</p>
+
+<hr />
+
+<h4>GitHub</h4>
+<p>
+	OpenShift: <a href="https://github.com/openshift/">Help openshift grow!</a> (or learn how it works, either or.)
+</p>
+<p>
+	Me: <a href="https://www.github.com/wshearn">See what else I have been up to.</a> (This cartridge is hosted there and pull requests and bug reports are welcome
+</p>
+
+

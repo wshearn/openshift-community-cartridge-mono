@@ -9,6 +9,8 @@
 </IfModule>
 <IfModule !mod_mono.c>
     LoadModule mono_module <%= ENV['OPENSHIFT_MONO_DIR'] %>/mono/modules/mod_mono.so
+    MonoServerPath "<%= ENV['OPENSHIFT_MONO_DIR'] %>/mono/bin/mod-mono-server4"
+    MonoIOMAP all
 </IfModule>
 
 <IfModule mod_headers.c>

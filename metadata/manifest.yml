@@ -3,10 +3,10 @@ Cartridge-Short-Name: MONO
 Display-Name: ASP.NET Cartridge using Mono
 Source-Url: https://github.com/wshearn/openshift-community-cartridge-mono.git
 Description: "ASP.NET for OpenShift."
-Version: '3.0.7'
+Version: '3.2.1'
 License: "GPL/LGPL"
 Vendor: Xamarin
-Cartridge-Version: 1.0
+Cartridge-Version: 2.0
 Cartridge-Vendor: wshearn
 Categories:
   - service
@@ -14,8 +14,8 @@ Categories:
 Provides:
   - mono-3.0
   - "mono"
-  - "mono (version) = 3.0" 
-  - "mono (version) = 3.0.7" 
+  - "mono (version) = 3.2" 
+  - "mono (version) = 3.2.1" 
 Cart-Data:
   - Key: OPENSHIFT_TMP_DIR
     Type: environment
@@ -49,7 +49,7 @@ Cart-Data:
     Description: "Unique ID which identified the gear. This value changes between gears."
 Group-Overrides:
   - components:
-    - mono-3.0.7
+    - mono-3.2.1
     - web_proxy
 Publishes:
   publish-http-url:

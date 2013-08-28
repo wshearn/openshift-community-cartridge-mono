@@ -1,2 +1,2 @@
 #!/bin/sh
-exec ${OPENSHIFT_MONO_DIR}/mono/bin//mono $MONO_OPTIONS "${OPENSHIFT_MONO_DIR}/mono/lib/mono/4.5/xsp4.exe" "$@"
+exec ${OPENSHIFT_MONO_DIR}/mono/bin/mono $MONO_OPTIONS "${OPENSHIFT_MONO_DIR}/mono/lib/mono/4.5/xsp4.exe" "$@"

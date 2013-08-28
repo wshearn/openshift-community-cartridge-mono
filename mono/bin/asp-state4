@@ -1,2 +1,2 @@
 #!/bin/sh
-exec ${OPENSHIFT_MONO_DIR}/mono/bin//mono $MONO_OPTIONS "${OPENSHIFT_MONO_DIR}/mono/lib/xsp/4.0/asp-state4.exe" "$@"
+exec ${OPENSHIFT_MONO_DIR}/mono/bin/mono $MONO_OPTIONS "${OPENSHIFT_MONO_DIR}/mono/lib/xsp/4.0/asp-state4.exe" "$@"

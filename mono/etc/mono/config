@@ -26,6 +26,6 @@
 		<dllentry dll="__Internal" name="MoveMemory" target="mono_win32_compat_MoveMemory"/>
 		<dllentry dll="__Internal" name="ZeroMemory" target="mono_win32_compat_ZeroMemory"/>
 	</dllmap>
-	<dllmap dll="gdiplus" target="/home/whearn/Work/apps/cart/mono3/lib/libgdiplus.so" />
-	<dllmap dll="gdiplus.dll" target="/home/whearn/Work/apps/cart/mono3/lib/libgdiplus.so" />
+	<dllmap dll="gdiplus" target="/opt/lib/libgdiplus.so" />
+	<dllmap dll="gdiplus.dll" target="/opt/lib/libgdiplus.so" />
 </configuration>

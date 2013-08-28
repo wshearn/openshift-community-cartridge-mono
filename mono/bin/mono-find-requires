@@ -19,7 +19,7 @@ monolist=($(printf "%s\n" "${filelist[@]}" | egrep "\\.(exe|dll)\$"))
 configlist=($(printf "%s\n" "${filelist[@]}" | egrep "\\.config\$"))
 
 # Set the prefix, unless it is overriden (used when building mono rpms)
-: ${prefix=/home/whearn/Work/apps/cart/mono3}
+: ${prefix=/opt}
 
 # Can override .config scanning if specified
 : ${IGNORE_CONFIG_SCAN=0}
